@@ -1,0 +1,5 @@
+Nome do ficheiro analisado: api.py
+10|CRI|Uso da função eval pode ser inseguro|Substituir eval por alternativas mais seguras
+12|CRI|Uso da função exec pode ser inseguro|Evitar o uso de exec para prevenir vulnerabilidades
+14|MAI|Importação global pode levar a conflitos|Importar apenas os módulos necessários
+16|WRN|Uso da função print encontrado|Utilizar logging em vez de print para produção
