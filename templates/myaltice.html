@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Código</title>
+    <style>
+        body {
+            background-color: blue;
+            color: white;
+        }
+        #result-box {
+            border: 1px solid black;
+            padding: 10px;
+            background-color: white;
+            color: black;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .btn:hover {background-color: #3e8e41}
+        .btn:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .file-input {
+            font-size: 16px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .file-input:hover {background-color: #3e8e41}
+        .file-input:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .file-input-hidden {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Análise de Código</h1>
+    <form action="/analisar" method="post" enctype="multipart/form-data">
+        <div class="file-input-container">
+            <button class="file-input">Escolher Ficheiro</button>
+            <input type="file" name="ficheiro" class="file-input-hidden" onchange="updateFileName(this)">
+        </div>
+        <span id="file-chosen">Nenhum ficheiro escolhido</span>
+        <button type="submit">Analisar</button>
+    </form>
+    <div id="result-box">
+        {% if resultado %}
+            <h2>Resultados da Análise:</h2>
+            <ul>
+                {% for line in resultado %}
+                    <li>{{ line }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('download_file', filename=filename) }}" class="btn">Abrir Resultado da Análise</a>
+        {% endif %}
+    </div>
+    <script>
+        function updateFileName(input) {
+            var fileName = input.files[0] ? input.files[0].name : 'Nenhum ficheiro escolhido';
+            document.getElementById('file-chosen').textContent = fileName;
+        }
+    </script>
+</body>
+</html>
